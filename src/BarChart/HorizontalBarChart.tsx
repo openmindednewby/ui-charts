@@ -5,14 +5,13 @@ import { StyleSheet, View } from 'react-native';
 import { useUi } from '@dloizides/ui-feedback';
 
 import { ChartFrame } from '../internal/ChartFrame';
+import { defaultFormatValue } from '../internal/labels';
 import { BarRow } from './components/BarRow';
 import { ROWS_GAP } from './constants';
 import { useBarItems } from './hooks/useBarItems';
 import type { BarDatum, BarValueFormatter } from './types';
 
 const styles = StyleSheet.create({ rows: { gap: ROWS_GAP } });
-
-const defaultFormatValue: BarValueFormatter = (value) => String(value);
 
 export interface HorizontalBarChartProps {
   data: readonly BarDatum[];

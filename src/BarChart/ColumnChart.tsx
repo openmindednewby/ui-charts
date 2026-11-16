@@ -5,14 +5,13 @@ import { StyleSheet, View } from 'react-native';
 import { useUi } from '@dloizides/ui-feedback';
 
 import { ChartFrame } from '../internal/ChartFrame';
+import { defaultFormatValue } from '../internal/labels';
 import { BarColumn } from './components/BarColumn';
 import { COLUMNS_GAP } from './constants';
 import { useBarItems } from './hooks/useBarItems';
 import type { BarDatum, BarValueFormatter } from './types';
 
 const styles = StyleSheet.create({ columns: { alignItems: 'flex-end', flexDirection: 'row', gap: COLUMNS_GAP } });
-
-const defaultFormatValue: BarValueFormatter = (value) => String(value);
 
 export interface ColumnChartProps {
   data: readonly BarDatum[];

@@ -1,8 +1,10 @@
 import { LEGEND_SEPARATOR, PERCENT_SCALE, SUMMARY_SEPARATOR } from './labelConstants';
 import type { DonutDatum, DonutSegment, DonutValueFormatter } from './types';
 
-/** The default formatter: the raw number as a string. */
-export const defaultFormatValue: DonutValueFormatter = (value) => String(value);
+/** The default formatter for every chart: the raw number as a string. */
+export function defaultFormatValue(value: number): string {
+  return String(value);
+}
 
 /** A segment's share of the total as a whole percent, e.g. "75%". */
 export function percentLabel(fraction: number): string {
