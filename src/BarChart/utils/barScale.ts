@@ -1,4 +1,4 @@
-import { LEGEND_SEPARATOR, SUMMARY_SEPARATOR } from '../../Donut/constants';
+import { LEGEND_SEPARATOR, SUMMARY_SEPARATOR } from '../../internal/labelConstants';
 import type { BarDatum, BarScaleOptions, BarValueFormatter, ScaledBar } from '../types';
 
 function safeValue(value: number): number {

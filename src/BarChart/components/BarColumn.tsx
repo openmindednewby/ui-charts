@@ -24,14 +24,14 @@ export interface BarColumnProps {
 
 /** One vertical bar: the value on top, a bar of `fraction` of the plot height, the label underneath. */
 export const BarColumn = ({ label, valueText, fraction, color, textColor, mutedColor, testID }: BarColumnProps): React.ReactElement => (
-  <View role="row" style={styles.column} testID={testID}>
+  <View role="listitem" style={styles.column} testID={testID}>
     <View style={styles.area}>
-      <Text role="cell" style={[styles.value, { color: textColor }]}>
+      <Text style={[styles.value, { color: textColor }]}>
         {valueText}
       </Text>
       <View aria-hidden style={[styles.bar, { backgroundColor: color, height: fraction * COLUMN_AREA_HEIGHT }]} />
     </View>
-    <Text role="cell" style={[styles.label, { color: mutedColor }]}>
+    <Text style={[styles.label, { color: mutedColor }]}>
       {label}
     </Text>
   </View>

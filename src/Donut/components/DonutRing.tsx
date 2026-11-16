@@ -3,7 +3,7 @@ import React from 'react';
 import { Circle, G, Svg } from 'react-native-svg';
 
 import { RING_CENTER, RING_CIRCUMFERENCE, RING_RADIUS, RING_SIZE, RING_START_ROTATION, RING_STROKE } from '../constants';
-import type { DonutDatum, DonutSegment } from '../types';
+import type { DonutDatum, DonutSegment } from '../../internal/types';
 
 export interface DonutRingProps {
   segments: ReadonlyArray<DonutSegment<DonutDatum>>;

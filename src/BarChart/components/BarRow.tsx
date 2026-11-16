@@ -33,14 +33,14 @@ export interface BarRowProps {
 
 /** One horizontal bar: label, a track with a fill of `fraction`, and the value as text. */
 export const BarRow = ({ label, valueText, fraction, color, trackColor, textColor, testID }: BarRowProps): React.ReactElement => (
-  <View role="row" style={styles.row} testID={testID}>
-    <Text role="cell" style={[styles.label, { color: textColor }]}>
+  <View role="listitem" style={styles.row} testID={testID}>
+    <Text style={[styles.label, { color: textColor }]}>
       {label}
     </Text>
     <View aria-hidden style={[styles.track, { backgroundColor: trackColor }]}>
       <View style={[styles.fill, { backgroundColor: color, width: `${fraction * FULL_PERCENT}%` }]} />
     </View>
-    <Text role="cell" style={[styles.value, { color: textColor }]}>
+    <Text style={[styles.value, { color: textColor }]}>
       {valueText}
     </Text>
   </View>

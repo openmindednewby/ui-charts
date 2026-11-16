@@ -11,8 +11,8 @@ import {
   SWATCH_RADIUS,
   SWATCH_SIZE,
 } from '../constants';
-import type { DonutDatum, DonutSegment, DonutValueFormatter } from '../types';
-import { legendLine } from '../utils/donutLabels';
+import type { DonutDatum, DonutSegment, DonutValueFormatter } from '../../internal/types';
+import { legendLine } from '../../internal/labels';
 
 const styles = StyleSheet.create({
   legend: { flexGrow: 1, flexShrink: 1, gap: LEGEND_GAP, minWidth: LEGEND_MIN_WIDTH },

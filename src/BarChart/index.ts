@@ -1,6 +1,7 @@
-export { BarChart } from './BarChart';
-export type { BarChartProps } from './BarChart';
-export { BarOrientation } from './BarOrientation';
+export { ColumnChart } from './ColumnChart';
+export type { ColumnChartProps } from './ColumnChart';
+export { HorizontalBarChart } from './HorizontalBarChart';
+export type { HorizontalBarChartProps } from './HorizontalBarChart';
 export { BarColumn } from './components/BarColumn';
 export type { BarColumnProps } from './components/BarColumn';
 export { BarRow } from './components/BarRow';

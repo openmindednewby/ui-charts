@@ -3,6 +3,7 @@ import React, { Children, useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import type { LayoutChangeEvent } from 'react-native';
 
+import { childKey } from './utils/childKey';
 import { panelGridColumns, panelWidth } from './utils/panelGridColumns';
 
 const DEFAULT_MIN_COLUMN_WIDTH = 420;
@@ -40,7 +41,7 @@ export const ChartPanelGrid = ({
     <View onLayout={handleLayout} style={[styles.grid, { gap }]} testID={testID}>
       {Children.toArray(children).map((child, index) => (
         <View
-          key={index}
+          key={childKey(child, index)}
           style={[styles.cell, cellWidth === undefined ? styles.stretch : { width: cellWidth }]}
           testID={`${testID}-cell-${index}`}
         >

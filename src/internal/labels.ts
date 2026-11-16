@@ -1,5 +1,5 @@
-import { LEGEND_SEPARATOR, PERCENT_SCALE, SUMMARY_SEPARATOR } from '../constants';
-import type { DonutDatum, DonutSegment, DonutValueFormatter } from '../types';
+import { LEGEND_SEPARATOR, PERCENT_SCALE, SUMMARY_SEPARATOR } from './labelConstants';
+import type { DonutDatum, DonutSegment, DonutValueFormatter } from './types';
 
 /** The default formatter: the raw number as a string. */
 export const defaultFormatValue: DonutValueFormatter = (value) => String(value);

@@ -1,4 +1,4 @@
-import type { DonutSegment } from '../types';
+import type { DonutSegment } from './types';
 
 /** Turn data into ring segments, preserving input order. Empty when the total is not positive. */
 export function toDonutSegments<T extends { value: number }>(data: readonly T[]): Array<DonutSegment<T>> {

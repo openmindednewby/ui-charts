@@ -1,4 +1,4 @@
-import { toDonutSegments } from './donutSegments';
+import { toDonutSegments } from './segments';
 
 describe('toDonutSegments', () => {
   it('with two values, assigns each its fraction of the total and a running start offset', () => {
