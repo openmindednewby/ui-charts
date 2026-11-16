@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0
+
+- `HorizontalBarChart` and `ColumnChart` (molecules) built from the `BarRow` and `BarColumn` atoms, with a heading slot, empty state and list semantics; helpers `scaleBars`, `barSummary` (MODC-1 "Module C unified console", AC-UI-4, AC-MC-8).
+- `StackedBar` (molecule): one bar split into theme-coloured segments plus a legend.
+- `ChartPanelGrid` (organism): responsive grid of chart panels built on ui-layout `Section`, stable child keys; helpers `panelGridColumns`, `panelWidth`.
+- `defaultFormatValue` is one shared formatter used by every chart.
+
 ## 1.1.1
 
 - `categoricalPalette` drops any colour within OKLab distance 0.12 of one already picked (was exact-value dedup, so FinReg kept near-identical navies for CHF/GBP and Draft/Awaiting/Returned), keeps each neighbour distinct under protan, deutan and tritan simulation, and tops up from hues derived around the theme anchor when the theme has too few distinct colours; order stays deterministic (FINREG-REPORT-1 S2 "palette repeats navy").
