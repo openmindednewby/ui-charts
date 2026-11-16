@@ -1,0 +1,10 @@
+export { ColumnChart } from './ColumnChart';
+export type { ColumnChartProps } from './ColumnChart';
+export { HorizontalBarChart } from './HorizontalBarChart';
+export type { HorizontalBarChartProps } from './HorizontalBarChart';
+export { BarColumn } from './components/BarColumn';
+export type { BarColumnProps } from './components/BarColumn';
+export { BarRow } from './components/BarRow';
+export type { BarRowProps } from './components/BarRow';
+export type { BarDatum, BarScaleOptions, BarValueFormatter, ScaledBar } from './types';
+export { barSummary, scaleBars } from './utils/barScale';

@@ -1,5 +1,5 @@
-import { defaultFormatValue, donutSummary, legendLine, percentLabel } from './donutLabels';
-import { toDonutSegments } from './donutSegments';
+import { defaultFormatValue, donutSummary, legendLine, percentLabel } from './labels';
+import { toDonutSegments } from './segments';
 
 describe('percentLabel', () => {
   it('with a fraction of 0.666, returns "67%"', () => {

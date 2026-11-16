@@ -1,4 +1,4 @@
-import { segmentColor } from './donutPalette';
+import { segmentColor } from './segmentColor';
 
 const PALETTE = ['primary', 'secondary'];
 

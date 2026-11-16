@@ -7,12 +7,12 @@ import { useUi } from '@dloizides/ui-feedback';
 import { DonutLegend } from './components/DonutLegend';
 import { DonutRing } from './components/DonutRing';
 import { BODY_GAP, ROOT_MIN_WIDTH, ROW_FONT_SIZE, TITLE_FONT_SIZE, TITLE_GAP } from './constants';
-import type { DonutDatum, DonutValueFormatter } from './types';
+import type { DonutDatum, DonutValueFormatter } from '../internal/types';
 import { categoricalPalette } from './utils/categoricalPalette';
 import type { CategoricalTheme } from './utils/categoricalPalette';
-import { defaultFormatValue, donutSummary } from './utils/donutLabels';
-import { segmentColor } from './utils/donutPalette';
-import { toDonutSegments } from './utils/donutSegments';
+import { defaultFormatValue, donutSummary } from '../internal/labels';
+import { segmentColor } from '../internal/segmentColor';
+import { toDonutSegments } from '../internal/segments';
 
 const styles = StyleSheet.create({
   body: { alignItems: 'center', flexDirection: 'row', flexWrap: 'wrap', gap: BODY_GAP },

@@ -26,3 +26,28 @@ import { Donut } from '@dloizides/ui-charts';
 Accessibility: the ring is `aria-hidden`; the body is a `figure` labelled with every slice; the legend is a `table` with one row per slice, so the data is readable without the ring.
 
 Peers: `react-native-svg >= 13`, `@dloizides/ui-feedback` (theme via `useUi`).
+
+## Exports by layer (UI-ATOMIC-1)
+
+| Layer | Export | Job |
+|---|---|---|
+| Atom | `BarRow` | one horizontal bar: label, track, value |
+| Atom | `BarColumn` | one vertical column: value, bar, label |
+| Molecule | `HorizontalBarChart` | list of `BarRow`s with a heading slot and empty state |
+| Molecule | `ColumnChart` | row of `BarColumn`s with a heading slot and empty state |
+| Molecule | `StackedBar` | one bar split into theme-coloured segments plus a legend |
+| Molecule | `Donut`, `DonutRing`, `DonutLegend` | ring plus legend table |
+| Organism | `ChartPanelGrid` | responsive grid of chart panels (panels are ui-layout `Section`) |
+
+Helpers: `scaleBars`, `barSummary` (bars), `panelGridColumns`, `panelWidth` (grid columns by width), `defaultFormatValue` (shared by every chart), `toDonutSegments`, `legendLine`, `percentLabel`, `donutSummary`, `segmentColor`, `categoricalPalette`.
+
+```tsx
+import { ChartPanelGrid, HorizontalBarChart } from '@dloizides/ui-charts';
+
+<HorizontalBarChart
+  label={FM('charts.leadsBySource')}
+  emptyText={FM('charts.noData')}
+  data={[{ key: 'web', label: 'Web', value: 12 }, { key: 'referral', label: 'Referral', value: 5 }]}
+  testID="leads-by-source"
+/>
+```
