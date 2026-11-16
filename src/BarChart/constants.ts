@@ -1,0 +1,15 @@
+export const BAR_THICKNESS = 10;
+export const BAR_RADIUS = 5;
+export const COLUMN_RADIUS = 6;
+export const COLUMN_AREA_HEIGHT = 96;
+export const ROW_LABEL_WIDTH = 96;
+export const ROW_VALUE_WIDTH = 64;
+export const ROW_GAP = 10;
+export const ROWS_GAP = 6;
+export const COLUMNS_GAP = 8;
+export const LABEL_FONT_SIZE = 13;
+export const VALUE_FONT_SIZE = 13;
+export const TITLE_FONT_SIZE = 16;
+export const TITLE_GAP = 12;
+export const FULL_PERCENT = 100;
+export const PRIMARY_SHADE = '500';
