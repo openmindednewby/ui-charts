@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 
-import { StyleSheet, View } from 'react-native';
+import { type LayoutChangeEvent, StyleSheet, View } from 'react-native';
 
 import { useUi } from '@dloizides/ui-feedback';
 
 import { ChartFrame } from '../internal/ChartFrame';
 import { defaultFormatValue } from '../internal/labels';
 import { BarColumn } from './components/BarColumn';
-import { COLUMNS_GAP } from './constants';
+import { MAX_COLUMN_LABEL_LENGTH } from './constants';
 import { useBarItems } from './hooks/useBarItems';
 import type { BarDatum, BarValueFormatter } from './types';
+import { columnLabelPlan, isColumnTextShown, shortenLabel } from './utils/columnLabels';
 
-const styles = StyleSheet.create({ columns: { alignItems: 'flex-end', flexDirection: 'row', gap: COLUMNS_GAP } });
+const styles = StyleSheet.create({ columns: { alignItems: 'flex-end', flexDirection: 'row' } });
 
 export interface ColumnChartProps {
   data: readonly BarDatum[];
@@ -22,10 +23,11 @@ export interface ColumnChartProps {
   palette?: readonly string[];
   max?: number;
   minVisibleFraction?: number;
+  maxLabelLength?: number;
   testID?: string;
 }
 
-/** One vertical column per datum (a histogram), value above and label below, so colour is never the only cue. */
+/** One vertical column per datum, value above and label below on one line each; crowded text thins to every n-th column. */
 export const ColumnChart = ({
   data,
   label,
@@ -35,22 +37,32 @@ export const ColumnChart = ({
   palette,
   max,
   minVisibleFraction,
+  maxLabelLength = MAX_COLUMN_LABEL_LENGTH,
   testID = 'column-chart',
 }: ColumnChartProps): React.ReactElement => {
   const { theme } = useUi();
   const { items, summary } = useBarItems({ data, formatValue, label, max, minVisibleFraction, palette });
+  const [plotWidth, setPlotWidth] = useState(0);
+  const labels = useMemo(() => items.map((item) => shortenLabel(item.label, maxLabelLength)), [items, maxLabelLength]);
+  const plan = useMemo(
+    () => columnLabelPlan({ labels, plotWidth, values: items.map((item) => item.valueText) }),
+    [items, labels, plotWidth]
+  );
+  const handleLayout = (event: LayoutChangeEvent): void => setPlotWidth(event.nativeEvent.layout.width);
   return (
     <ChartFrame emptyText={emptyText} heading={heading} isEmpty={items.length === 0} summary={summary} testID={testID}>
-      <View role="list" style={styles.columns}>
-        {items.map((item) => (
+      <View onLayout={handleLayout} role="list" style={[styles.columns, { gap: plan.gap }]}>
+        {items.map((item, index) => (
           <BarColumn
             color={item.color}
             fraction={item.fraction}
             key={item.key}
-            label={item.label}
+            label={labels[index] ?? item.label}
             mutedColor={theme.colors.textSecondary}
+            showText={isColumnTextShown(index, plan.step)}
             testID={`${testID}-bar-${item.key}`}
             textColor={theme.colors.text}
+            textWidth={plan.textWidth}
             valueText={item.valueText}
           />
         ))}

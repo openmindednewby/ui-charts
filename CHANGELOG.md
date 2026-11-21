@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+- `ColumnChart` value and date labels stay on one line (`numberOfLines` 1, fixed text box centred on the column); a crowded plot measures its width, shrinks the column gap and shows text on every n-th column only, so labels never overlap; labels over `maxLabelLength` (default 12) end with an ellipsis. Was one character per line at 30 columns in a 488 px card (MODC-1 visual-qa, TEXT-FIT-1). The accessible summary still lists every value.
+
 ## 1.2.0
 
 - `HorizontalBarChart` and `ColumnChart` (molecules) built from the `BarRow` and `BarColumn` atoms, with a heading slot, empty state and list semantics; helpers `scaleBars`, `barSummary` (MODC-1 "Module C unified console", AC-UI-4, AC-MC-8).
