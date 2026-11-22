@@ -10,7 +10,7 @@ import { BarColumn } from './components/BarColumn';
 import { MAX_COLUMN_LABEL_LENGTH } from './constants';
 import { useBarItems } from './hooks/useBarItems';
 import type { BarDatum, BarValueFormatter } from './types';
-import { columnLabelPlan, isColumnTextShown, shortenLabel } from './utils/columnLabels';
+import { columnLabelPlan, columnTextBoxWidth, isColumnTextShown, shortenLabel } from './utils/columnLabels';
 
 const styles = StyleSheet.create({ columns: { alignItems: 'flex-end', flexDirection: 'row' } });
 
@@ -62,7 +62,7 @@ export const ColumnChart = ({
             showText={isColumnTextShown(index, plan.step)}
             testID={`${testID}-bar-${item.key}`}
             textColor={theme.colors.text}
-            textWidth={plan.textWidth}
+            textWidth={columnTextBoxWidth(plan)}
             valueText={item.valueText}
           />
         ))}

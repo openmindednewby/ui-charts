@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.2
+
+- `ColumnChart` value and date labels are no longer cut to stubs ("1.", "7..") on RN-web: a one-line Text gets `maxWidth: 100%` there, so its own width was capped at the column width. The width now sits on the box around the text, centred on the column and as wide as its label slot (`columnTextBoxWidth`: slot width x shown-label step). MODC-1 visual-qa, TEXT-FIT-1.
+
 ## 1.2.1
 
 - `ColumnChart` value and date labels stay on one line (`numberOfLines` 1, fixed text box centred on the column); a crowded plot measures its width, shrinks the column gap and shows text on every n-th column only, so labels never overlap; labels over `maxLabelLength` (default 12) end with an ellipsis. Was one character per line at 30 columns in a 488 px card (MODC-1 visual-qa, TEXT-FIT-1). The accessible summary still lists every value.

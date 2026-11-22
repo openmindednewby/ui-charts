@@ -1,4 +1,4 @@
-import { columnLabelPlan, shortenLabel } from './columnLabels';
+import { columnLabelPlan, columnTextBoxWidth, shortenLabel } from './columnLabels';
 
 describe('columnLabelPlan', () => {
   it('with an unmeasured plot, shows every label', () => {
@@ -50,5 +50,23 @@ describe('shortenLabel', () => {
     const result = shortenLabel(label, 8);
 
     expect(result).toBe('United …');
+  });
+});
+
+describe('columnTextBoxWidth', () => {
+  it('with a measured plot showing every 3rd column, returns the width of three slots', () => {
+    const plan = { gap: 2, slotWidth: 16, step: 3, textWidth: 37 };
+
+    const width = columnTextBoxWidth(plan);
+
+    expect(width).toBe(48);
+  });
+
+  it('with an unmeasured plot, returns the text width', () => {
+    const plan = { gap: 8, slotWidth: 0, step: 1, textWidth: 37 };
+
+    const width = columnTextBoxWidth(plan);
+
+    expect(width).toBe(37);
   });
 });

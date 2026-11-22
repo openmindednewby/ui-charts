@@ -37,6 +37,11 @@ export function columnLabelPlan({ labels, values, plotWidth }: ColumnLabelPlanIn
   return { gap, slotWidth, step: Math.max(1, Math.ceil(textWidth / slotWidth)), textWidth };
 }
 
+/** Width of the box a shown value or label is centred in: its label slot (`step` columns), or the text width before layout. */
+export function columnTextBoxWidth(plan: ColumnLabelPlan): number {
+  return plan.slotWidth > 0 ? plan.slotWidth * plan.step : plan.textWidth;
+}
+
 /** True when column `index` shows its text under a plan of `step`. */
 export function isColumnTextShown(index: number, step: number): boolean {
   return index % step === 0;

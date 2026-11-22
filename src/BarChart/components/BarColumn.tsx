@@ -43,22 +43,22 @@ export const BarColumn = ({
   showText = true,
   textWidth,
 }: BarColumnProps): React.ReactElement => {
-  const width = textWidth !== undefined && textWidth > 0 ? { width: textWidth } : null;
+  const box = textWidth !== undefined && textWidth > 0 ? { alignSelf: 'center' as const, width: textWidth } : null;
   return (
     <View role="listitem" style={styles.column} testID={testID}>
       <View style={styles.area}>
-        <View style={styles.textBox}>
+        <View style={[styles.textBox, box]}>
           {showText ? (
-            <Text numberOfLines={1} style={[styles.value, width, { color: textColor }]} testID={`${testID}-value`}>
+            <Text numberOfLines={1} style={[styles.value, { color: textColor }]} testID={`${testID}-value`}>
               {valueText}
             </Text>
           ) : null}
         </View>
         <View aria-hidden style={[styles.bar, { backgroundColor: color, height: fraction * COLUMN_AREA_HEIGHT }]} />
       </View>
-      <View style={styles.textBox}>
+      <View style={[styles.textBox, box]}>
         {showText ? (
-          <Text numberOfLines={1} style={[styles.label, width, { color: mutedColor }]} testID={`${testID}-label`}>
+          <Text numberOfLines={1} style={[styles.label, { color: mutedColor }]} testID={`${testID}-label`}>
             {label}
           </Text>
         ) : null}
