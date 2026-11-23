@@ -11,10 +11,25 @@ export function percentLabel(fraction: number): string {
   return `${Math.round(fraction * PERCENT_SCALE)}%`;
 }
 
+export interface LegendParts {
+  label: string;
+  value: string;
+  percent: string;
+}
+
+/** The three legend parts of one segment: its label, formatted value and percent of the whole. */
+export function legendParts(segment: DonutSegment<DonutDatum>, formatValue: DonutValueFormatter): LegendParts {
+  return {
+    label: segment.datum.label,
+    percent: percentLabel(segment.fraction),
+    value: formatValue(segment.datum.value, segment.datum),
+  };
+}
+
 /** The legend line for one segment: label, formatted value and percent. */
 export function legendLine(segment: DonutSegment<DonutDatum>, formatValue: DonutValueFormatter): string {
-  const value = formatValue(segment.datum.value, segment.datum);
-  return [segment.datum.label, value, percentLabel(segment.fraction)].join(LEGEND_SEPARATOR);
+  const parts = legendParts(segment, formatValue);
+  return [parts.label, parts.value, parts.percent].join(LEGEND_SEPARATOR);
 }
 
 /** The accessible summary of the whole chart: its label followed by every legend line. */

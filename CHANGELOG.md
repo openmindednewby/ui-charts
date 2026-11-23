@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0
+
+- `ChartCard` (atom) and `ChartPanelGrid` `variant={PanelVariant.Card}`: each panel on a card surface (theme `surfaceElevated` fill, 1px `border`, 12px radius, 16px padding); default stays plain (MODC-1 G-1).
+- Chart title row: a string `heading` now renders as a 15px/700 title in the theme text colour, and `ColumnChart`, `HorizontalBarChart` and `StackedBar` take a `meta` slot shown right-aligned and muted at 13px (string) or as given (node, e.g. a badge) (MODC-1 G-5).
+- `ColumnChart` axis mode (`axis={{ tickCount }}`): a 0..max y-axis, no value above each column, and `tickCount` (default 3) evenly spaced x labels, first and last included, fewer when they would not fit; helpers `axisTickPlan`, `axisTickAnchor`; `BarColumn` gains `showValue` and `textAnchor` (MODC-1 G-6, TEXT-FIT-1). Value mode is unchanged.
+- Inline legend: `DonutLegend` `variant={LegendVariant.Inline}` (and `StackedBar` `legendVariant`) lays items on one wrapping row: dot, the datum `icon` if set, label, bold count, muted percent; helper `legendParts` (MODC-1 G-8).
+
 ## 1.2.2
 
 - `ColumnChart` value and date labels are no longer cut to stubs ("1.", "7..") on RN-web: a one-line Text gets `maxWidth: 100%` there, so its own width was capped at the column width. The width now sits on the box around the text, centred on the column and as wide as its label slot (`columnTextBoxWidth`: slot width x shown-label step). MODC-1 visual-qa, TEXT-FIT-1.

@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { useUi } from '@dloizides/ui-feedback';
 
-import { categoricalPalette, DonutLegend } from '../Donut';
+import { categoricalPalette, DonutLegend, LegendVariant } from '../Donut';
 import type { CategoricalTheme } from '../Donut';
 import { ChartFrame } from '../internal/ChartFrame';
 import { defaultFormatValue, donutSummary } from '../internal/labels';
@@ -27,19 +27,23 @@ export interface StackedBarProps {
   label: string;
   emptyText: string;
   heading?: React.ReactNode;
+  meta?: React.ReactNode;
   formatValue?: DonutValueFormatter;
   palette?: readonly string[];
+  legendVariant?: LegendVariant;
   testID?: string;
 }
 
-/** One bar split into parts of a whole, with the Donut legend table as its text fallback. */
+/** One bar split into parts of a whole, with the Donut legend (table, or one wrapping inline row) as its text fallback. */
 export const StackedBar = ({
   segments,
   label,
   emptyText,
   heading,
+  meta,
   formatValue = defaultFormatValue,
   palette,
+  legendVariant = LegendVariant.Table,
   testID = 'stacked-bar',
 }: StackedBarProps): React.ReactElement => {
   const { theme } = useUi();
@@ -54,6 +58,7 @@ export const StackedBar = ({
       emptyText={emptyText}
       heading={heading}
       isEmpty={placed.length === 0}
+      meta={meta}
       summary={summary}
       testID={testID}
     >
@@ -62,7 +67,15 @@ export const StackedBar = ({
           <View key={segment.datum.key} style={{ backgroundColor: colors[i], flexGrow: segment.fraction }} />
         ))}
       </View>
-      <DonutLegend colors={colors} formatValue={formatValue} segments={placed} testID={testID} textColor={theme.colors.text} />
+      <DonutLegend
+        colors={colors}
+        formatValue={formatValue}
+        mutedColor={theme.colors.textSecondary}
+        segments={placed}
+        testID={testID}
+        textColor={theme.colors.text}
+        variant={legendVariant}
+      />
     </ChartFrame>
   );
 };

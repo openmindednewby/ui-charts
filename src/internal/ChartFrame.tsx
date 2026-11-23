@@ -5,6 +5,8 @@ import type { StyleProp, ViewStyle } from 'react-native';
 
 import { useUi } from '@dloizides/ui-feedback';
 
+import { ChartHeader } from './ChartHeader';
+
 const FRAME_GAP = 12;
 const EMPTY_FONT_SIZE = 13;
 
@@ -15,6 +17,7 @@ const styles = StyleSheet.create({
 
 export interface ChartFrameProps {
   heading?: React.ReactNode;
+  meta?: React.ReactNode;
   summary: string;
   emptyText: string;
   isEmpty: boolean;
@@ -23,12 +26,12 @@ export interface ChartFrameProps {
   testID: string;
 }
 
-/** The shell every chart shares: an optional heading slot, then the figure (named by `summary`) or the empty text. */
-export const ChartFrame = ({ heading, summary, emptyText, isEmpty, bodyStyle, children, testID }: ChartFrameProps): React.ReactElement => {
+/** The shell every chart shares: a title row (heading + meta), then the figure (named by `summary`) or the empty text. */
+export const ChartFrame = ({ heading, meta, summary, emptyText, isEmpty, bodyStyle, children, testID }: ChartFrameProps): React.ReactElement => {
   const { theme } = useUi();
   return (
     <View style={styles.root} testID={testID}>
-      {heading}
+      <ChartHeader heading={heading} meta={meta} mutedColor={theme.colors.textSecondary} testID={testID} textColor={theme.colors.text} />
       {isEmpty ? (
         <Text style={[styles.empty, { color: theme.colors.textSecondary }]} testID={`${testID}-empty`}>
           {emptyText}

@@ -1,4 +1,4 @@
-import { defaultFormatValue, donutSummary, legendLine, percentLabel } from './labels';
+import { defaultFormatValue, donutSummary, legendLine, legendParts, percentLabel } from './labels';
 import { toDonutSegments } from './segments';
 
 describe('percentLabel', () => {
@@ -40,5 +40,18 @@ describe('donutSummary', () => {
     const summary = donutSummary('By status', segments, defaultFormatValue);
 
     expect(summary).toBe('By status, Paid · 3 · 75%, Failed · 1 · 25%');
+  });
+});
+
+describe('legendParts', () => {
+  it('with one of four, returns the label, the formatted value and "25%"', () => {
+    const [segment] = toDonutSegments([
+      { key: 'fail', label: 'Fail', value: 1 },
+      { key: 'pass', label: 'Pass', value: 3 },
+    ]);
+
+    const parts = legendParts(segment, (value) => `${value} cases`);
+
+    expect(parts).toEqual({ label: 'Fail', percent: '25%', value: '1 cases' });
   });
 });

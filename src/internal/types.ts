@@ -1,8 +1,11 @@
+import type { ReactNode } from 'react';
+
 export interface DonutDatum {
   key: string;
   label: string;
   value: number;
   color?: string;
+  icon?: ReactNode;
 }
 
 export interface DonutSegment<T extends { value: number }> {

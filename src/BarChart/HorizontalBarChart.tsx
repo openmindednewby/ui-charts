@@ -18,6 +18,7 @@ export interface HorizontalBarChartProps {
   label: string;
   emptyText: string;
   heading?: React.ReactNode;
+  meta?: React.ReactNode;
   formatValue?: BarValueFormatter;
   palette?: readonly string[];
   max?: number;
@@ -31,6 +32,7 @@ export const HorizontalBarChart = ({
   label,
   emptyText,
   heading,
+  meta,
   formatValue = defaultFormatValue,
   palette,
   max,
@@ -40,7 +42,7 @@ export const HorizontalBarChart = ({
   const { theme } = useUi();
   const { items, summary } = useBarItems({ data, formatValue, label, max, minVisibleFraction, palette });
   return (
-    <ChartFrame emptyText={emptyText} heading={heading} isEmpty={items.length === 0} summary={summary} testID={testID}>
+    <ChartFrame emptyText={emptyText} heading={heading} isEmpty={items.length === 0} meta={meta} summary={summary} testID={testID}>
       <View role="list" style={styles.rows}>
         {items.map((item) => (
           <BarRow
