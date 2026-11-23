@@ -23,6 +23,10 @@ export interface HorizontalBarChartProps {
   palette?: readonly string[];
   max?: number;
   minVisibleFraction?: number;
+  /** Bar height in px. Default 10. */
+  barThickness?: number;
+  /** Show each bar's share of the total after a bold count. Default false. */
+  showShare?: boolean;
   testID?: string;
 }
 
@@ -37,10 +41,12 @@ export const HorizontalBarChart = ({
   palette,
   max,
   minVisibleFraction,
+  barThickness,
+  showShare,
   testID = 'horizontal-bar-chart',
 }: HorizontalBarChartProps): React.ReactElement => {
   const { theme } = useUi();
-  const { items, summary } = useBarItems({ data, formatValue, label, max, minVisibleFraction, palette });
+  const { items, summary } = useBarItems({ data, formatValue, label, max, minVisibleFraction, palette, showShare });
   return (
     <ChartFrame emptyText={emptyText} heading={heading} isEmpty={items.length === 0} meta={meta} summary={summary} testID={testID}>
       <View role="list" style={styles.rows}>
@@ -50,8 +56,11 @@ export const HorizontalBarChart = ({
             fraction={item.fraction}
             key={item.key}
             label={item.label}
+            mutedColor={theme.colors.textSecondary}
+            shareText={item.shareText}
             testID={`${testID}-bar-${item.key}`}
             textColor={theme.colors.text}
+            thickness={barThickness}
             trackColor={theme.colors.border}
             valueText={item.valueText}
           />
