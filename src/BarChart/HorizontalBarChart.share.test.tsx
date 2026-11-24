@@ -65,6 +65,27 @@ describe('HorizontalBarChart', () => {
     const track = byId(container, `${ID}-bar-low`)?.children[1] as HTMLElement;
     expect([track.style.height, track.style.borderTopLeftRadius, track.style.borderBottomRightRadius]).toEqual(['8px', '4px', '4px']);
   });
+
+  it('with a rowGap of 13, spaces the rows 13 px apart', () => {
+    const container = renderChart(<HorizontalBarChart data={DATA} emptyText="None" label="Risk" rowGap={13} testID={ID} />);
+
+    const list = byId(container, `${ID}-bar-low`)?.parentElement as HTMLElement;
+    expect(list.style.gap).toBe('13px');
+  });
+
+  it('with a trackWidth of 86, fixes the track at 86 px and lets the label grow', () => {
+    const container = renderChart(<HorizontalBarChart data={DATA} emptyText="None" label="Risk" testID={ID} trackWidth={86} />);
+
+    const [label, track] = Array.from(byId(container, `${ID}-bar-low`)?.children ?? []) as HTMLElement[];
+    expect([track.style.width, track.style.flexGrow, label.style.flexGrow]).toEqual(['86px', '0', '1']);
+  });
+
+  it('without trackWidth, lets the track fill the row', () => {
+    const container = renderChart(<HorizontalBarChart data={DATA} emptyText="None" label="Risk" testID={ID} />);
+
+    const track = byId(container, `${ID}-bar-low`)?.children[1] as HTMLElement;
+    expect(track.style.width).toBe('');
+  });
 });
 
 describe('ChartTitle', () => {

@@ -36,6 +36,8 @@ export interface BarRowProps {
   /** The bar's share of the total ("61%"); when set the count turns bold and the share follows it muted. */
   shareText?: string;
   mutedColor?: string;
+  /** Fixed track width in px; the label then takes the remaining space. Default: the track fills it. */
+  trackWidth?: number;
 }
 
 /** One horizontal bar: label, a track with a fill of `fraction`, and the value as text. */
@@ -50,12 +52,13 @@ export const BarRow = ({
   thickness = BAR_THICKNESS,
   shareText,
   mutedColor = textColor,
+  trackWidth,
 }: BarRowProps): React.ReactElement => (
   <View role="listitem" style={styles.row} testID={testID}>
-    <Text style={[styles.label, { color: textColor }]}>
+    <Text style={[styles.label, trackWidth === undefined ? undefined : { flexGrow: 1, width: 'auto' }, { color: textColor }]}>
       {label}
     </Text>
-    <View aria-hidden style={[styles.track, { backgroundColor: trackColor, borderRadius: thickness / 2, height: thickness }]}>
+    <View aria-hidden style={[styles.track, trackWidth === undefined ? undefined : { flexGrow: 0, width: trackWidth }, { backgroundColor: trackColor, borderRadius: thickness / 2, height: thickness }]}>
       <View style={[styles.fill, { backgroundColor: color, borderRadius: thickness / 2, height: thickness, width: `${fraction * FULL_PERCENT}%` }]} />
     </View>
     <Text style={[styles.value, { color: textColor }, shareText === undefined ? undefined : styles.valueStrong]} testID={`${testID}-value`}>

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0
+
+- `HorizontalBarChart` `rowGap` (vertical gap between rows in px, default 6) and `trackWidth` (fixed track width in px, the label takes the remaining space; default the track fills the row); `BarRow` gains `trackWidth` (MODC-1 dashboard tune). Defaults unchanged.
+
 ## 1.4.0
 
 - `HorizontalBarChart` `barThickness` (bar height in px, radius half of it; default 10) and `showShare` (bold count followed by the muted share of the total); `BarRow` gains `thickness`, `shareText`, `mutedColor` (MODC-1 D-MC-728).
