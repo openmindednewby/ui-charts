@@ -63,7 +63,7 @@ describe('HorizontalBarChart', () => {
     const container = renderChart(<HorizontalBarChart barThickness={8} data={DATA} emptyText="None" label="Risk" testID={ID} />);
 
     const track = byId(container, `${ID}-bar-low`)?.children[1] as HTMLElement;
-    expect([track.style.height, track.style.borderRadius]).toEqual(['8px', '4px']);
+    expect([track.style.height, track.style.borderTopLeftRadius, track.style.borderBottomRightRadius]).toEqual(['8px', '4px', '4px']);
   });
 });
 

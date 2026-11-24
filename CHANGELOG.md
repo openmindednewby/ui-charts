@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0
+
+- `HorizontalBarChart` `barThickness` (bar height in px, radius half of it; default 10) and `showShare` (bold count followed by the muted share of the total); `BarRow` gains `thickness`, `shareText`, `mutedColor` (MODC-1 D-MC-728).
+- `ChartTitle` is exported: a chart heading with its own `weight` and `size` (for a 15/600 heading pass `weight="600"`) (MODC-1 D-MC-728).
+
 ## 1.3.0
 
 - `ChartCard` (atom) and `ChartPanelGrid` `variant={PanelVariant.Card}`: each panel on a card surface (theme `surfaceElevated` fill, 1px `border`, 12px radius, 16px padding); default stays plain (MODC-1 G-1).
