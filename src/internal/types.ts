@@ -6,6 +6,7 @@ export interface DonutDatum {
   value: number;
   color?: string;
   icon?: ReactNode;
+  striped?: boolean;
 }
 
 export interface DonutSegment<T extends { value: number }> {

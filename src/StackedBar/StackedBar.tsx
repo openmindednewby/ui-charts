@@ -10,6 +10,7 @@ import { ChartFrame } from '../internal/ChartFrame';
 import { defaultFormatValue, donutSummary } from '../internal/labels';
 import { segmentColor } from '../internal/segmentColor';
 import { toDonutSegments } from '../internal/segments';
+import { StripedFill } from './StripedFill';
 import type { DonutDatum, DonutValueFormatter } from '../internal/types';
 
 const STACK_HEIGHT = 14;
@@ -34,7 +35,7 @@ export interface StackedBarProps {
   testID?: string;
 }
 
-/** One bar split into parts of a whole, with the Donut legend (table, or one wrapping inline row) as its text fallback. */
+/** One bar split into parts of a whole (a striped part draws hatched), with the Donut legend (table, or one wrapping inline row) as its text fallback. */
 export const StackedBar = ({
   segments,
   label,
@@ -64,7 +65,9 @@ export const StackedBar = ({
     >
       <View aria-hidden style={styles.stack}>
         {placed.map((segment, i) => (
-          <View key={segment.datum.key} style={{ backgroundColor: colors[i], flexGrow: segment.fraction }} />
+          <View key={segment.datum.key} style={{ backgroundColor: segment.datum.striped === true ? undefined : colors[i], flexGrow: segment.fraction }}>
+            {segment.datum.striped === true ? <StripedFill color={colors[i] ?? ''} id={`${testID}-stripes-${segment.datum.key}`} /> : null}
+          </View>
         ))}
       </View>
       <DonutLegend
