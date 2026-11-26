@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.0
+
+- `GroupedColumnChart`: grouped multi-series columns (`groups` with a value per `series` key), each series `SeriesStyle.Filled` or `SeriesStyle.Outlined`, a legend with each series total (own `total` or the sum; text via `legendText`), and a chart/table switch when `toggle` labels are given (44px hit box). Colours: series `color`, else `palette`, else the theme categorical palette. Atoms `GroupedColumns`, `SeriesLegend`, `GroupedTable`, `TableToggle`; helpers `groupedMax`, `groupedSummary`, `groupValue`, `resolveSeries`, `seriesTotal` (INV-TAX-2). `ColumnChart` is unchanged.
+
 ## 1.5.0
 
 - `HorizontalBarChart` `rowGap` (vertical gap between rows in px, default 6) and `trackWidth` (fixed track width in px, the label takes the remaining space; default the track fills the row); `BarRow` gains `trackWidth` (MODC-1 dashboard tune). Defaults unchanged.

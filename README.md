@@ -35,6 +35,8 @@ Peers: `react-native-svg >= 13`, `@dloizides/ui-feedback` (theme via `useUi`).
 | Atom | `BarColumn` | one vertical column: value, bar, label |
 | Molecule | `HorizontalBarChart` | list of `BarRow`s with a heading slot and empty state |
 | Molecule | `ColumnChart` | row of `BarColumn`s with a heading slot and empty state |
+| Atom | `GroupedColumns`, `SeriesLegend`, `GroupedTable`, `TableToggle` | grouped bars, legend keys with totals, the same numbers as a table, the chart/table switch |
+| Molecule | `GroupedColumnChart` | several series per group, each `SeriesStyle.Filled` or `Outlined`, legend with totals, optional table view (`toggle`) |
 | Molecule | `StackedBar` | one bar split into theme-coloured segments plus a legend |
 | Molecule | `Donut`, `DonutRing`, `DonutLegend` | ring plus legend table |
 | Organism | `ChartPanelGrid` | responsive grid of chart panels (panels are ui-layout `Section`) |
