@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { GROUPED_FONT_SIZE, OUTLINE_WIDTH, TABLE_ROW_PADDING } from '../constants';
 import type { ColumnGroup, GroupedValueFormatter, ResolvedSeries } from '../types';
 import { groupValue } from '../utils/groupedScale';
+import { useChartText } from '../../ChartText';
 
 const styles = StyleSheet.create({
   cell: { flex: 1, fontSize: GROUPED_FONT_SIZE, fontVariant: ['tabular-nums'], minWidth: 0, textAlign: 'right' },
@@ -24,7 +25,8 @@ export interface GroupedTableProps {
 
 /** The chart's numbers as a table: a header of series labels, then one row per group. */
 export const GroupedTable = ({ groups, series, formatValue, textColor, borderColor, testID }: GroupedTableProps): React.ReactElement => {
-  const cell = [styles.cell, { color: textColor }];
+  const { numeral } = useChartText();
+  const cell = [styles.cell, numeral, { color: textColor }];
   const row = [styles.row, { borderTopColor: borderColor }];
   return (
     <View role="table" testID={`${testID}-table`}>

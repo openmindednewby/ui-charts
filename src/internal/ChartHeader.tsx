@@ -3,6 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { StyleProp, TextStyle } from 'react-native';
 
+import { useChartText } from '../ChartText';
+
 export const HEADER_TITLE_FONT_SIZE = 15;
 export const HEADER_META_FONT_SIZE = 13;
 const HEADER_GAP = 8;
@@ -35,12 +37,13 @@ function asText(node: React.ReactNode, style: StyleProp<TextStyle>, testID: stri
 
 /** The chart title row: a string heading becomes the styled title, a string meta a muted figure on the right. */
 export const ChartHeader = ({ heading, meta, textColor, mutedColor, testID }: ChartHeaderProps): React.ReactElement | null => {
+  const { numeral } = useChartText();
   if (heading === undefined && meta === undefined) return null;
   return (
     <View style={styles.row} testID={`${testID}-header`}>
       {asText(heading, [styles.title, TITLE_TEXT, { color: textColor }], `${testID}-title`)}
       {meta === undefined ? null : (
-        <View style={styles.metaBox}>{asText(meta, [styles.meta, META_TEXT, { color: mutedColor }], `${testID}-meta`)}</View>
+        <View style={styles.metaBox}>{asText(meta, [styles.meta, numeral, META_TEXT, { color: mutedColor }], `${testID}-meta`)}</View>
       )}
     </View>
   );

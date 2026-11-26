@@ -12,6 +12,7 @@ import {
   ROW_VALUE_WIDTH,
   VALUE_FONT_SIZE,
 } from '../constants';
+import { useChartText } from '../../ChartText';
 
 const styles = StyleSheet.create({
   fill: { borderRadius: BAR_RADIUS, height: BAR_THICKNESS },
@@ -53,7 +54,9 @@ export const BarRow = ({
   shareText,
   mutedColor = textColor,
   trackWidth,
-}: BarRowProps): React.ReactElement => (
+}: BarRowProps): React.ReactElement => {
+  const { numeral } = useChartText();
+  return (
   <View role="listitem" style={styles.row} testID={testID}>
     <Text style={[styles.label, trackWidth === undefined ? undefined : { flexGrow: 1, width: 'auto' }, { color: textColor }]}>
       {label}
@@ -61,7 +64,7 @@ export const BarRow = ({
     <View aria-hidden style={[styles.track, trackWidth === undefined ? undefined : { flexGrow: 0, width: trackWidth }, { backgroundColor: trackColor, borderRadius: thickness / 2, height: thickness }]}>
       <View style={[styles.fill, { backgroundColor: color, borderRadius: thickness / 2, height: thickness, width: `${fraction * FULL_PERCENT}%` }]} />
     </View>
-    <Text style={[styles.value, { color: textColor }, shareText === undefined ? undefined : styles.valueStrong]} testID={`${testID}-value`}>
+    <Text style={[styles.value, numeral, { color: textColor }, shareText === undefined ? undefined : styles.valueStrong]} testID={`${testID}-value`}>
       {valueText}
       {shareText === undefined ? null : (
         <Text style={[styles.share, { color: mutedColor }]} testID={`${testID}-share`}>
@@ -70,4 +73,5 @@ export const BarRow = ({
       )}
     </Text>
   </View>
-);
+  );
+};

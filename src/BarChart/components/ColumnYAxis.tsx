@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { COLUMN_AREA_HEIGHT, LABEL_LINE_HEIGHT } from '../constants';
+import { useChartText } from '../../ChartText';
 
 const AXIS_FONT_SIZE = 12;
 const AXIS_LINE_HEIGHT = 14;
@@ -20,13 +21,16 @@ export interface ColumnYAxisProps {
 }
 
 /** The y-axis of a column chart in axis mode: the top value at the top of the plot and zero at its base. */
-export const ColumnYAxis = ({ maxText, zeroText, color, testID }: ColumnYAxisProps): React.ReactElement => (
+export const ColumnYAxis = ({ maxText, zeroText, color, testID }: ColumnYAxisProps): React.ReactElement => {
+  const { numeral } = useChartText();
+  return (
   <View aria-hidden style={styles.axis} testID={`${testID}-y-axis`}>
-    <Text numberOfLines={1} style={[styles.tick, { color }]} testID={`${testID}-y-max`}>
+    <Text numberOfLines={1} style={[styles.tick, numeral, { color }]} testID={`${testID}-y-max`}>
       {maxText}
     </Text>
-    <Text numberOfLines={1} style={[styles.tick, { color }]} testID={`${testID}-y-zero`}>
+    <Text numberOfLines={1} style={[styles.tick, numeral, { color }]} testID={`${testID}-y-zero`}>
       {zeroText}
     </Text>
   </View>
-);
+  );
+};

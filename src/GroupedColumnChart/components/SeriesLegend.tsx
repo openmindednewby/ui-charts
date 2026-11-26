@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { GROUPED_FONT_SIZE, LEGEND_COLUMN_GAP, LEGEND_KEY_GAP, LEGEND_ROW_GAP, OUTLINE_WIDTH, SWATCH_SIZE } from '../constants';
 import { SeriesStyle } from '../SeriesStyle';
 import type { ResolvedSeries, SeriesLegendText } from '../types';
+import { markerRadius, useChartText } from '../../ChartText';
 
 const styles = StyleSheet.create({
   key: { alignItems: 'center', flexDirection: 'row', gap: LEGEND_KEY_GAP, maxWidth: '100%' },
@@ -21,12 +22,14 @@ export interface SeriesLegendProps {
 }
 
 /** One key per series: a filled or outlined swatch and the series label with its total. */
-export const SeriesLegend = ({ series, legendText, textColor, testID }: SeriesLegendProps): React.ReactElement => (
+export const SeriesLegend = ({ series, legendText, textColor, testID }: SeriesLegendProps): React.ReactElement => {
+  const { legendMarker } = useChartText();
+  return (
   <View role="list" style={styles.legend} testID={`${testID}-legend`}>
     {series.map((one) => (
       <View key={one.series.key} role="listitem" style={styles.key}>
         <View
-          style={[styles.swatch, { borderColor: one.color }, one.style === SeriesStyle.Filled ? { backgroundColor: one.color } : null]}
+          style={[styles.swatch, { borderColor: one.color, borderRadius: markerRadius(legendMarker, SWATCH_SIZE, 0) }, one.style === SeriesStyle.Filled ? { backgroundColor: one.color } : null]}
           testID={`${testID}-swatch-${one.series.key}`}
         />
         <Text style={[styles.text, { color: textColor }]} testID={`${testID}-legend-${one.series.key}`}>
@@ -35,4 +38,5 @@ export const SeriesLegend = ({ series, legendText, textColor, testID }: SeriesLe
       </View>
     ))}
   </View>
-);
+  );
+};

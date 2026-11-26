@@ -5,6 +5,7 @@ import type { ViewStyle } from 'react-native';
 
 import { ColumnTextAnchor } from '../ColumnTextAnchor';
 import { COLUMN_AREA_HEIGHT, COLUMN_RADIUS, LABEL_FONT_SIZE, LABEL_LINE_HEIGHT, VALUE_FONT_SIZE } from '../constants';
+import { useChartText } from '../../ChartText';
 
 const styles = StyleSheet.create({
   area: { height: COLUMN_AREA_HEIGHT, justifyContent: 'flex-end' },
@@ -61,6 +62,7 @@ export const BarColumn = ({
   textWidth,
   textAnchor = ColumnTextAnchor.Center,
 }: BarColumnProps): React.ReactElement => {
+  const { numeral } = useChartText();
   const box = textWidth !== undefined && textWidth > 0 ? { alignSelf: ANCHOR_SELF[textAnchor], width: textWidth } : null;
   return (
     <View role="listitem" style={styles.column} testID={testID}>
@@ -68,7 +70,7 @@ export const BarColumn = ({
         {showValue ? (
           <View style={[styles.textBox, box]}>
             {showText ? (
-              <Text numberOfLines={1} style={[styles.value, { color: textColor }]} testID={`${testID}-value`}>
+              <Text numberOfLines={1} style={[styles.value, numeral, { color: textColor }]} testID={`${testID}-value`}>
                 {valueText}
               </Text>
             ) : null}

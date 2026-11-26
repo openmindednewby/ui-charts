@@ -6,6 +6,7 @@ import type { TextStyle } from 'react-native';
 import { legendLine, legendParts } from '../../internal/labels';
 import type { DonutDatum, DonutSegment, DonutValueFormatter } from '../../internal/types';
 import { ROW_FONT_SIZE } from '../constants';
+import { useChartText } from '../../ChartText';
 
 const DOT_SIZE = 8;
 const ITEM_GAP = 6;
@@ -32,7 +33,9 @@ export interface InlineLegendProps {
 }
 
 /** The legend on one wrapping row: per item a dot, the datum icon if any, the label, a bold count and a muted percent. */
-export const InlineLegend = ({ segments, colors, formatValue, textColor, mutedColor, testID }: InlineLegendProps): React.ReactElement => (
+export const InlineLegend = ({ segments, colors, formatValue, textColor, mutedColor, testID }: InlineLegendProps): React.ReactElement => {
+  const { numeral } = useChartText();
+  return (
   <View role="list" style={styles.row} testID={`${testID}-legend`}>
     {segments.map((segment, i) => {
       const parts = legendParts(segment, formatValue);
@@ -42,14 +45,15 @@ export const InlineLegend = ({ segments, colors, formatValue, textColor, mutedCo
           <View aria-hidden style={[styles.dot, { backgroundColor: colors[i] }]} />
           {segment.datum.icon ?? null}
           <Text style={[styles.label, { color: textColor }]}>{parts.label}</Text>
-          <Text style={[styles.count, COUNT_TEXT, { color: textColor }]} testID={`${id}-count`}>
+          <Text style={[styles.count, numeral, COUNT_TEXT, { color: textColor }]} testID={`${id}-count`}>
             {parts.value}
           </Text>
-          <Text style={[styles.percent, { color: mutedColor }]} testID={`${id}-percent`}>
+          <Text style={[styles.percent, numeral, { color: mutedColor }]} testID={`${id}-percent`}>
             {parts.percent}
           </Text>
         </View>
       );
     })}
   </View>
-);
+  );
+};
