@@ -1,0 +1,15 @@
+export const GROUP_PLOT_HEIGHT = 140;
+export const GROUPS_GAP = 4;
+export const BARS_GAP = 1;
+export const MIN_BAR_WIDTH = 2;
+export const OUTLINE_WIDTH = 1;
+export const SWATCH_SIZE = 14;
+export const LEGEND_COLUMN_GAP = 14;
+export const LEGEND_ROW_GAP = 4;
+export const LEGEND_KEY_GAP = 6;
+export const GROUPED_FONT_SIZE = 13;
+export const MIN_HIT_SIZE = 44;
+export const TOGGLE_PADDING = 12;
+export const TABLE_ROW_PADDING = 8;
+export const GROUPED_GAP = 12;
+export const FULL_PERCENT = 100;
