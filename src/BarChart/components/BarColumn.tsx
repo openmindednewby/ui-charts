@@ -46,6 +46,7 @@ export interface BarColumnProps {
   showValue?: boolean;
   textWidth?: number;
   textAnchor?: ColumnTextAnchor;
+  plotHeight?: number;
 }
 
 /** One vertical bar: the value on top (unless `showValue` is false), a bar of `fraction` of the plot height, the label underneath. */
@@ -61,12 +62,13 @@ export const BarColumn = ({
   showValue = true,
   textWidth,
   textAnchor = ColumnTextAnchor.Center,
+  plotHeight = COLUMN_AREA_HEIGHT,
 }: BarColumnProps): React.ReactElement => {
   const { numeral } = useChartText();
   const box = textWidth !== undefined && textWidth > 0 ? { alignSelf: ANCHOR_SELF[textAnchor], width: textWidth } : null;
   return (
     <View role="listitem" style={styles.column} testID={testID}>
-      <View style={styles.area}>
+      <View style={[styles.area, { height: plotHeight }]}>
         {showValue ? (
           <View style={[styles.textBox, box]}>
             {showText ? (
@@ -76,7 +78,7 @@ export const BarColumn = ({
             ) : null}
           </View>
         ) : null}
-        <View aria-hidden style={[styles.bar, { backgroundColor: color, height: fraction * COLUMN_AREA_HEIGHT }]} />
+        <View aria-hidden style={[styles.bar, { backgroundColor: color, height: fraction * plotHeight }]} />
       </View>
       <View style={[styles.textBox, box]}>
         {showText ? (

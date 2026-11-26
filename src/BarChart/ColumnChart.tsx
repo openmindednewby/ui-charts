@@ -8,7 +8,7 @@ import { ChartFrame } from '../internal/ChartFrame';
 import { defaultFormatValue } from '../internal/labels';
 import { BarColumn } from './components/BarColumn';
 import { ColumnYAxis } from './components/ColumnYAxis';
-import { MAX_COLUMN_LABEL_LENGTH } from './constants';
+import { COLUMN_AREA_HEIGHT, MAX_COLUMN_LABEL_LENGTH } from './constants';
 import { useBarItems } from './hooks/useBarItems';
 import { useColumnText } from './hooks/useColumnText';
 import type { BarDatum, BarValueFormatter, ColumnAxis } from './types';
@@ -59,6 +59,7 @@ export const ColumnChart = ({
   const values = useMemo(() => items.map((item) => item.valueText), [items]);
   const layout = useColumnText({ axis, labels, plotWidth, values });
   const handleLayout = (event: LayoutChangeEvent): void => setPlotWidth(event.nativeEvent.layout.width);
+  const plotHeight = axis?.plotHeight ?? COLUMN_AREA_HEIGHT;
   const top = max ?? data.reduce((most, datum) => Math.max(most, datum.value), 0);
   const columns = (
     <View onLayout={handleLayout} role="list" style={[styles.columns, axis === undefined ? null : styles.plot, { gap: layout.gap }]}>
@@ -70,6 +71,7 @@ export const ColumnChart = ({
           key={item.key}
           label={labels[index] ?? item.label}
           mutedColor={theme.colors.textSecondary}
+          plotHeight={plotHeight}
           showValue={axis === undefined}
           testID={`${testID}-bar-${item.key}`}
           textColor={theme.colors.text}
@@ -82,7 +84,7 @@ export const ColumnChart = ({
     <ChartFrame emptyText={emptyText} heading={heading} isEmpty={items.length === 0} meta={meta} summary={summary} testID={testID}>
       {axis === undefined ? columns : (
         <View style={styles.withAxis}>
-          <ColumnYAxis color={theme.colors.textSecondary} maxText={formatValue(top, { key: 'axis-max', label: '', value: top })} testID={testID} zeroText={formatValue(0, { key: 'axis-zero', label: '', value: 0 })} />
+          <ColumnYAxis color={theme.colors.textSecondary} height={plotHeight} maxText={formatValue(top, { key: 'axis-max', label: '', value: top })} testID={testID} zeroText={formatValue(0, { key: 'axis-zero', label: '', value: 0 })} />
           {columns}
         </View>
       )}

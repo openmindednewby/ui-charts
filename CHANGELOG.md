@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.0
+
+- `ColumnChart` axis mode: opt-in `axis.plotHeight` (px) sets the plot height in place of the fixed 96 px; bars and the y-axis follow. Without it nothing changes (MODC-1 r7 "quota trend plot height").
+
 ## 1.8.0
 
 - `ChartTextProvider` (opt-in): `numeralFontFamily` sets one font family (e.g. the theme mono) on every chart number (bar values, column values, y-axis ticks, header meta, inline legend counts and percents, grouped table cells); `legendMarker: LegendMarker.Dot` draws round table-legend and series-legend markers. Outside a provider nothing changes. Hook `useChartText`, helper `markerRadius` (MODC-1 residual "chart mono numerals + legend dots").

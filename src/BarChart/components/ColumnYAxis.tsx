@@ -18,13 +18,14 @@ export interface ColumnYAxisProps {
   zeroText: string;
   color: string;
   testID: string;
+  height?: number;
 }
 
 /** The y-axis of a column chart in axis mode: the top value at the top of the plot and zero at its base. */
-export const ColumnYAxis = ({ maxText, zeroText, color, testID }: ColumnYAxisProps): React.ReactElement => {
+export const ColumnYAxis = ({ maxText, zeroText, color, testID, height = COLUMN_AREA_HEIGHT }: ColumnYAxisProps): React.ReactElement => {
   const { numeral } = useChartText();
   return (
-  <View aria-hidden style={styles.axis} testID={`${testID}-y-axis`}>
+  <View aria-hidden style={[styles.axis, { height }]} testID={`${testID}-y-axis`}>
     <Text numberOfLines={1} style={[styles.tick, numeral, { color }]} testID={`${testID}-y-max`}>
       {maxText}
     </Text>

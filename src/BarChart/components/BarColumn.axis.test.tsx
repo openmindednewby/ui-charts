@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { ColumnTextAnchor } from '../ColumnTextAnchor';
 import { BarColumn } from './BarColumn';
 
-function renderAxisColumn(textAnchor: ColumnTextAnchor): HTMLElement {
+function renderAxisColumn(textAnchor: ColumnTextAnchor, plotHeight?: number): HTMLElement {
   const container = document.createElement('div');
   document.body.appendChild(container);
   act(() => {
@@ -15,6 +15,7 @@ function renderAxisColumn(textAnchor: ColumnTextAnchor): HTMLElement {
         fraction={0.5}
         label="23 Nov"
         mutedColor="currentColor"
+        plotHeight={plotHeight}
         showValue={false}
         testID="col"
         textAnchor={textAnchor}
@@ -42,5 +43,21 @@ describe('BarColumn axis mode', () => {
     const label = container.querySelector<HTMLElement>('[data-testid="col-label"]');
 
     expect({ align: label?.style.textAlign, self: label?.parentElement?.style.alignSelf }).toEqual({ align: 'right', self: 'flex-end' });
+  });
+
+  it('with plotHeight 40 and fraction 0.5, draws a 20 px bar in a 40 px plot', () => {
+    const container = renderAxisColumn(ColumnTextAnchor.Center, 40);
+
+    const bar = container.querySelector<HTMLElement>('[data-testid="col"]')?.firstElementChild?.lastElementChild as HTMLElement | null;
+
+    expect({ bar: bar?.style.height, plot: (bar?.parentElement as HTMLElement | null)?.style.height }).toEqual({ bar: '20px', plot: '40px' });
+  });
+
+  it('without plotHeight, keeps the 96 px default plot', () => {
+    const container = renderAxisColumn(ColumnTextAnchor.Center);
+
+    const plot = container.querySelector<HTMLElement>('[data-testid="col"]')?.firstElementChild as HTMLElement | null;
+
+    expect(plot?.style.height).toBe('96px');
   });
 });

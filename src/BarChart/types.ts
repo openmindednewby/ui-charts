@@ -20,4 +20,5 @@ export type BarValueFormatter = (value: number, datum: BarDatum) => string;
 
 export interface ColumnAxis {
   tickCount?: number;
+  plotHeight?: number;
 }
