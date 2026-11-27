@@ -1,4 +1,5 @@
-import { columnLabelPlan, columnTextBoxWidth, shortenLabel } from './columnLabels';
+import { ColumnTextAnchor } from '../ColumnTextAnchor';
+import { columnLabelPlan, columnTextAnchor, columnTextBoxWidth, shortenLabel } from './columnLabels';
 
 describe('columnLabelPlan', () => {
   it('with an unmeasured plot, shows every label', () => {
@@ -68,5 +69,33 @@ describe('columnTextBoxWidth', () => {
     const width = columnTextBoxWidth(plan);
 
     expect(width).toBe(37);
+  });
+});
+
+describe('columnTextAnchor', () => {
+  const plan = { gap: 2, slotWidth: 16, step: 3, textWidth: 37 };
+
+  it('with the first column, starts the text at the plot left edge', () => {
+    const anchor = columnTextAnchor({ count: 30, index: 0, plan, plotWidth: 480 });
+
+    expect(anchor).toBe(ColumnTextAnchor.Start);
+  });
+
+  it('with a shown column whose box would pass the plot right edge, ends the text at it', () => {
+    const anchor = columnTextAnchor({ count: 30, index: 29, plan, plotWidth: 480 });
+
+    expect(anchor).toBe(ColumnTextAnchor.End);
+  });
+
+  it('with a column well inside the plot, centres the text', () => {
+    const anchor = columnTextAnchor({ count: 30, index: 12, plan, plotWidth: 480 });
+
+    expect(anchor).toBe(ColumnTextAnchor.Center);
+  });
+
+  it('with an unmeasured plot, centres the text', () => {
+    const anchor = columnTextAnchor({ count: 30, index: 0, plan: { ...plan, slotWidth: 0 }, plotWidth: 0 });
+
+    expect(anchor).toBe(ColumnTextAnchor.Center);
   });
 });

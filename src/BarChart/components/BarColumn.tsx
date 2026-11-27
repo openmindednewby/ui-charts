@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     fontVariant: ['tabular-nums'],
     fontWeight: '600',
     lineHeight: LABEL_LINE_HEIGHT,
-    textAlign: 'center',
   },
 });
 
@@ -72,7 +71,7 @@ export const BarColumn = ({
         {showValue ? (
           <View style={[styles.textBox, box]}>
             {showText ? (
-              <Text numberOfLines={1} style={[styles.value, numeral, { color: textColor }]} testID={`${testID}-value`}>
+              <Text numberOfLines={1} style={[styles.value, numeral, { color: textColor, textAlign: ANCHOR_TEXT[textAnchor] }]} testID={`${testID}-value`}>
                 {valueText}
               </Text>
             ) : null}

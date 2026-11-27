@@ -7,6 +7,7 @@ import {
   LABEL_FONT_SIZE,
   MIN_COLUMNS_GAP,
 } from '../constants';
+import { ColumnTextAnchor } from '../ColumnTextAnchor';
 
 export interface ColumnLabelPlanInput {
   labels: readonly string[];
@@ -40,6 +41,24 @@ export function columnLabelPlan({ labels, values, plotWidth }: ColumnLabelPlanIn
 /** Width of the box a shown value or label is centred in: its label slot (`step` columns), or the text width before layout. */
 export function columnTextBoxWidth(plan: ColumnLabelPlan): number {
   return plan.slotWidth > 0 ? plan.slotWidth * plan.step : plan.textWidth;
+}
+
+export interface ColumnTextAnchorInput {
+  index: number;
+  count: number;
+  plan: ColumnLabelPlan;
+  plotWidth: number;
+}
+
+/** Where a value-mode text box sits on its column: start at the plot's left edge or end at its right edge when a centred box would pass it. */
+export function columnTextAnchor({ index, count, plan, plotWidth }: ColumnTextAnchorInput): ColumnTextAnchor {
+  if (plan.slotWidth <= 0 || plotWidth <= 0 || count < 2) return ColumnTextAnchor.Center;
+  const boxWidth = columnTextBoxWidth(plan);
+  const columnWidth = plan.slotWidth - plan.gap;
+  const centre = index * plan.slotWidth + columnWidth / 2;
+  if (centre - boxWidth / 2 < 0) return ColumnTextAnchor.Start;
+  if (centre + boxWidth / 2 > plotWidth) return ColumnTextAnchor.End;
+  return ColumnTextAnchor.Center;
 }
 
 /** True when column `index` shows its text under a plan of `step`. */

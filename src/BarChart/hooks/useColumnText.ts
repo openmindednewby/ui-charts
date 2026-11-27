@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { ColumnTextAnchor } from '../ColumnTextAnchor';
 import type { ColumnAxis } from '../types';
 import { axisTickAnchor, axisTickPlan, DEFAULT_AXIS_TICKS } from '../utils/columnAxis';
-import { columnLabelPlan, columnTextBoxWidth, isColumnTextShown } from '../utils/columnLabels';
+import { columnLabelPlan, columnTextAnchor, columnTextBoxWidth, isColumnTextShown } from '../utils/columnLabels';
 
 export interface ColumnTextInput {
   labels: readonly string[];
@@ -32,7 +32,7 @@ export function useColumnText({ labels, values, plotWidth, axis }: ColumnTextInp
       const textWidth = columnTextBoxWidth(plan);
       return {
         gap: plan.gap,
-        textAt: (index) => ({ showText: isColumnTextShown(index, plan.step), textAnchor: ColumnTextAnchor.Center, textWidth }),
+        textAt: (index) => ({ showText: isColumnTextShown(index, plan.step), textAnchor: columnTextAnchor({ count: labels.length, index, plan, plotWidth }), textWidth }),
       };
     }
     const ticks = axisTickPlan({ count: labels.length, labels, plotWidth, tickCount });

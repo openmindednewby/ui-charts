@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.11.1
+
+- `ColumnChart` value mode: the first and last shown value and label are anchored at the plot's left and right edge (start and end) when a centred box would pass it, so the first x-axis label is no longer clipped. Other columns and axis mode unchanged (MODC-1 "column chart edge labels").
+
 ## 1.11.0
 
 - `HorizontalBarChart` opt-in `barRadius` (track and fill corner radius in px, default half the thickness), `labelFontSize` and `valueFontSize` (px, default 13) and `labelWidth` (fixed label column in px, default 96; the track flexes); `BarRow` gains the same four. Defaults unchanged (MODC-1 "bar row style props").
