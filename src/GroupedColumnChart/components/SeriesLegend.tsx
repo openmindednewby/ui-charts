@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { GROUPED_FONT_SIZE, LEGEND_COLUMN_GAP, LEGEND_KEY_GAP, LEGEND_ROW_GAP, OUTLINE_WIDTH, SWATCH_SIZE } from '../constants';
 import { SeriesStyle } from '../SeriesStyle';
 import type { ResolvedSeries, SeriesLegendText } from '../types';
-import { markerRadius, useChartText } from '../../ChartText';
+import { LegendMarker, markerRadius, useChartText } from '../../ChartText';
 
 const styles = StyleSheet.create({
   key: { alignItems: 'center', flexDirection: 'row', gap: LEGEND_KEY_GAP, maxWidth: '100%' },
@@ -28,10 +28,10 @@ export const SeriesLegend = ({ series, legendText, textColor, testID }: SeriesLe
   <View role="list" style={styles.legend} testID={`${testID}-legend`}>
     {series.map((one) => (
       <View key={one.series.key} role="listitem" style={styles.key}>
-        <View
+        {legendMarker === LegendMarker.None ? null : <View
           style={[styles.swatch, { borderColor: one.color, borderRadius: markerRadius(legendMarker, SWATCH_SIZE, 0) }, one.style === SeriesStyle.Filled ? { backgroundColor: one.color } : null]}
           testID={`${testID}-swatch-${one.series.key}`}
-        />
+        />}
         <Text style={[styles.text, { color: textColor }]} testID={`${testID}-legend-${one.series.key}`}>
           {legendText(one.series, one.totalText)}
         </Text>

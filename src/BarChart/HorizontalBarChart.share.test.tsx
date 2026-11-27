@@ -52,6 +52,12 @@ describe('HorizontalBarChart', () => {
     expect(byId(container, `${ID}-bar-high-share`)?.textContent).toBe(' 25%');
   });
 
+  it('with a shareTotal of 400, divides each count by it instead of the shown sum', () => {
+    const container = renderChart(<HorizontalBarChart showShare data={DATA} emptyText="None" label="Risk" shareTotal={400} testID={ID} />);
+
+    expect(byId(container, `${ID}-bar-low-value`)?.textContent).toBe('3 1%');
+  });
+
   it('without showShare, renders the count alone', () => {
     const container = renderChart(<HorizontalBarChart data={DATA} emptyText="None" label="Risk" testID={ID} />);
 
@@ -93,5 +99,19 @@ describe('ChartTitle', () => {
     const container = renderChart(<ChartTitle testID="title" text="By decision" weight="600" />);
 
     expect([byId(container, 'title')?.style.fontWeight, byId(container, 'title')?.style.fontSize]).toEqual(['600', '15px']);
+  });
+
+  it('with a valueWidth of 40 and a valueGap of 33, sizes the value column and its gap', () => {
+    const container = renderChart(<HorizontalBarChart data={DATA} emptyText="None" label="Risk" testID={ID} valueGap={33} valueWidth={40} />);
+
+    const value = byId(container, `${ID}-bar-low-value`) as HTMLElement;
+    expect([value.style.width, (value.parentElement as HTMLElement).style.gap]).toEqual(['40px', '33px']);
+  });
+
+  it('without valueWidth and valueGap, sets no inline override so the stylesheet 64 px and 10 px apply', () => {
+    const container = renderChart(<HorizontalBarChart data={DATA} emptyText="None" label="Risk" testID={ID} />);
+
+    const value = byId(container, `${ID}-bar-low-value`) as HTMLElement;
+    expect([value.style.width, (value.parentElement as HTMLElement).style.gap]).toEqual(['', '']);
   });
 });

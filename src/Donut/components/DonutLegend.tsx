@@ -15,7 +15,7 @@ import { LegendVariant } from '../LegendVariant';
 import type { DonutDatum, DonutSegment, DonutValueFormatter } from '../../internal/types';
 import { legendLine } from '../../internal/labels';
 import { InlineLegend } from './InlineLegend';
-import { markerRadius, useChartText } from '../../ChartText';
+import { LegendMarker, markerRadius, useChartText } from '../../ChartText';
 
 const styles = StyleSheet.create({
   legend: { flexGrow: 1, flexShrink: 1, gap: LEGEND_GAP, minWidth: LEGEND_MIN_WIDTH },
@@ -54,7 +54,7 @@ export const DonutLegend = ({
     <View role="table" style={styles.legend} testID={`${testID}-legend`}>
       {segments.map((segment, i) => (
         <View key={segment.datum.key} role="row" style={styles.row} testID={`${testID}-legend-${segment.datum.key}`}>
-          <View aria-hidden style={[styles.swatch, { backgroundColor: colors[i], borderRadius: markerRadius(legendMarker, SWATCH_SIZE, SWATCH_RADIUS) }]} testID={`${testID}-legend-${segment.datum.key}-marker`} />
+          {legendMarker === LegendMarker.None ? null : <View aria-hidden style={[styles.swatch, { backgroundColor: colors[i], borderRadius: markerRadius(legendMarker, SWATCH_SIZE, SWATCH_RADIUS) }]} testID={`${testID}-legend-${segment.datum.key}-marker`} />}
           <Text role="cell" style={[styles.text, { color: textColor }]}>
             {legendLine(segment, formatValue)}
           </Text>

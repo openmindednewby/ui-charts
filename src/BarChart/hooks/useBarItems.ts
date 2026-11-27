@@ -25,10 +25,11 @@ export interface UseBarItemsInput {
   max?: number;
   minVisibleFraction?: number;
   showShare?: boolean;
+  shareTotal?: number;
 }
 
 /** Scales the data and resolves each bar colour (own colour, else palette, else theme primary) and value text. */
-export function useBarItems({ data, label, formatValue, palette, max, minVisibleFraction, showShare = false }: UseBarItemsInput): {
+export function useBarItems({ data, label, formatValue, palette, max, minVisibleFraction, showShare = false, shareTotal }: UseBarItemsInput): {
   items: BarItem[];
   summary: string;
 } {
@@ -37,7 +38,7 @@ export function useBarItems({ data, label, formatValue, palette, max, minVisible
   return useMemo(() => {
     const bars = scaleBars(data, { max, minVisibleFraction });
     const colors = palette ?? [primary];
-    const total = data.reduce((sum, datum) => sum + datum.value, 0);
+    const total = shareTotal ?? data.reduce((sum, datum) => sum + datum.value, 0);
     const items = bars.map((bar) => ({
       color: segmentColor(bar.datum, bar.index, colors),
       fraction: bar.fraction,
@@ -47,5 +48,5 @@ export function useBarItems({ data, label, formatValue, palette, max, minVisible
       valueText: formatValue(bar.datum.value, bar.datum),
     }));
     return { items, summary: barSummary(label, bars, formatValue) };
-  }, [data, label, formatValue, palette, max, minVisibleFraction, showShare, primary]);
+  }, [data, label, formatValue, palette, max, minVisibleFraction, showShare, shareTotal, primary]);
 }

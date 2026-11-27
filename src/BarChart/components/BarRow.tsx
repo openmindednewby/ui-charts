@@ -39,6 +39,10 @@ export interface BarRowProps {
   mutedColor?: string;
   /** Fixed track width in px; the label then takes the remaining space. Default: the track fills it. */
   trackWidth?: number;
+  /** Value column width in px. Default 64. */
+  valueWidth?: number;
+  /** Gap between the row columns (label, track, value) in px. Default 10. */
+  valueGap?: number;
 }
 
 /** One horizontal bar: label, a track with a fill of `fraction`, and the value as text. */
@@ -54,17 +58,19 @@ export const BarRow = ({
   shareText,
   mutedColor = textColor,
   trackWidth,
+  valueWidth,
+  valueGap,
 }: BarRowProps): React.ReactElement => {
   const { numeral } = useChartText();
   return (
-  <View role="listitem" style={styles.row} testID={testID}>
+  <View role="listitem" style={[styles.row, valueGap === undefined ? undefined : { gap: valueGap }]} testID={testID}>
     <Text style={[styles.label, trackWidth === undefined ? undefined : { flexGrow: 1, width: 'auto' }, { color: textColor }]}>
       {label}
     </Text>
     <View aria-hidden style={[styles.track, trackWidth === undefined ? undefined : { flexGrow: 0, width: trackWidth }, { backgroundColor: trackColor, borderRadius: thickness / 2, height: thickness }]}>
       <View style={[styles.fill, { backgroundColor: color, borderRadius: thickness / 2, height: thickness, width: `${fraction * FULL_PERCENT}%` }]} />
     </View>
-    <Text style={[styles.value, numeral, { color: textColor }, shareText === undefined ? undefined : styles.valueStrong]} testID={`${testID}-value`}>
+    <Text style={[styles.value, numeral, { color: textColor }, shareText === undefined ? undefined : styles.valueStrong, valueWidth === undefined ? undefined : { width: valueWidth }]} testID={`${testID}-value`}>
       {valueText}
       {shareText === undefined ? null : (
         <Text style={[styles.share, { color: mutedColor }]} testID={`${testID}-share`}>

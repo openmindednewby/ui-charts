@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.10.0
+
+- `HorizontalBarChart` opt-in `valueWidth` (value column width in px, default 64) and `valueGap` (gap between the row columns in px, default 10); `BarRow` gains both. `shareTotal` (share denominator in place of the shown sum) and `LegendMarker.None` (text-only legend: no marker in the table, inline and series legends). Defaults unchanged (MODC-1 r8 "dashboard bar width").
+
 ## 1.9.0
 
 - `ColumnChart` axis mode: opt-in `axis.plotHeight` (px) sets the plot height in place of the fixed 96 px; bars and the y-axis follow. Without it nothing changes (MODC-1 r7 "quota trend plot height").

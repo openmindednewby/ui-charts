@@ -27,10 +27,16 @@ export interface HorizontalBarChartProps {
   barThickness?: number;
   /** Show each bar's share of the total after a bold count. Default false. */
   showShare?: boolean;
+  /** Denominator for each share in place of the sum of the shown rows (e.g. a grand total). */
+  shareTotal?: number;
   /** Vertical gap between rows in px. Default 6. */
   rowGap?: number;
   /** Fixed track width in px; the label takes the remaining space. Default: the track fills the row. */
   trackWidth?: number;
+  /** Value column width in px. Default 64. */
+  valueWidth?: number;
+  /** Gap between the row columns in px. Default 10. */
+  valueGap?: number;
   testID?: string;
 }
 
@@ -47,12 +53,15 @@ export const HorizontalBarChart = ({
   minVisibleFraction,
   barThickness,
   showShare,
+  shareTotal,
   rowGap,
   trackWidth,
+  valueWidth,
+  valueGap,
   testID = 'horizontal-bar-chart',
 }: HorizontalBarChartProps): React.ReactElement => {
   const { theme } = useUi();
-  const { items, summary } = useBarItems({ data, formatValue, label, max, minVisibleFraction, palette, showShare });
+  const { items, summary } = useBarItems({ data, formatValue, label, max, minVisibleFraction, palette, shareTotal, showShare });
   return (
     <ChartFrame emptyText={emptyText} heading={heading} isEmpty={items.length === 0} meta={meta} summary={summary} testID={testID}>
       <View role="list" style={[styles.rows, rowGap === undefined ? undefined : { gap: rowGap }]}>
@@ -69,7 +78,9 @@ export const HorizontalBarChart = ({
             thickness={barThickness}
             trackColor={theme.colors.border}
             trackWidth={trackWidth}
+            valueGap={valueGap}
             valueText={item.valueText}
+            valueWidth={valueWidth}
           />
         ))}
       </View>

@@ -73,6 +73,23 @@ describe('ChartTextProvider', () => {
     expect(radius).toBe(`${SWATCH_SIZE / 2}px`);
   });
 
+  it('with the none marker, draws no table legend marker', () => {
+    const root = mount(<ChartTextProvider legendMarker={LegendMarker.None}>{table}</ChartTextProvider>);
+
+    const marker = root.querySelector('[data-testid="t-legend-a-marker"]');
+
+    expect(marker).toBeNull();
+  });
+
+  it('with the none marker, draws no inline legend dot', () => {
+    const withDot = mount(inline).querySelectorAll('[aria-hidden="true"]').length;
+    const root = mount(<ChartTextProvider legendMarker={LegendMarker.None}>{inline}</ChartTextProvider>);
+
+    const without = root.querySelectorAll('[aria-hidden="true"]').length;
+
+    expect(withDot - without).toBe(SEGMENTS.length);
+  });
+
   it('without a provider, keeps the square table legend marker', () => {
     const root = mount(table);
 
