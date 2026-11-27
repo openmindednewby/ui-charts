@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.11.0
+
+- `HorizontalBarChart` opt-in `barRadius` (track and fill corner radius in px, default half the thickness), `labelFontSize` and `valueFontSize` (px, default 13) and `labelWidth` (fixed label column in px, default 96; the track flexes); `BarRow` gains the same four. Defaults unchanged (MODC-1 "bar row style props").
+
 ## 1.10.1
 
 First published release of the 1.10.0 changes below (v1.10.0 tag never published: version mismatch in package.json).

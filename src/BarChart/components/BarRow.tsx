@@ -43,6 +43,14 @@ export interface BarRowProps {
   valueWidth?: number;
   /** Gap between the row columns (label, track, value) in px. Default 10. */
   valueGap?: number;
+  /** Bar and track corner radius in px. Default: half the thickness. */
+  barRadius?: number;
+  /** Label font size in px. Default 13. */
+  labelFontSize?: number;
+  /** Value font size in px. Default 13. */
+  valueFontSize?: number;
+  /** Fixed label column width in px; the track flexes. Default 96. */
+  labelWidth?: number;
 }
 
 /** One horizontal bar: label, a track with a fill of `fraction`, and the value as text. */
@@ -60,17 +68,21 @@ export const BarRow = ({
   trackWidth,
   valueWidth,
   valueGap,
+  barRadius = thickness / 2,
+  labelFontSize,
+  valueFontSize,
+  labelWidth,
 }: BarRowProps): React.ReactElement => {
   const { numeral } = useChartText();
   return (
   <View role="listitem" style={[styles.row, valueGap === undefined ? undefined : { gap: valueGap }]} testID={testID}>
-    <Text style={[styles.label, trackWidth === undefined ? undefined : { flexGrow: 1, width: 'auto' }, { color: textColor }]}>
+    <Text style={[styles.label, trackWidth === undefined ? undefined : { flexGrow: 1, width: 'auto' }, labelWidth === undefined ? undefined : { flexGrow: 0, width: labelWidth }, labelFontSize === undefined ? undefined : { fontSize: labelFontSize }, { color: textColor }]}>
       {label}
     </Text>
-    <View aria-hidden style={[styles.track, trackWidth === undefined ? undefined : { flexGrow: 0, width: trackWidth }, { backgroundColor: trackColor, borderRadius: thickness / 2, height: thickness }]}>
-      <View style={[styles.fill, { backgroundColor: color, borderRadius: thickness / 2, height: thickness, width: `${fraction * FULL_PERCENT}%` }]} />
+    <View aria-hidden style={[styles.track, trackWidth === undefined ? undefined : { flexGrow: 0, width: trackWidth }, { backgroundColor: trackColor, borderRadius: barRadius, height: thickness }]}>
+      <View style={[styles.fill, { backgroundColor: color, borderRadius: barRadius, height: thickness, width: `${fraction * FULL_PERCENT}%` }]} />
     </View>
-    <Text style={[styles.value, numeral, { color: textColor }, shareText === undefined ? undefined : styles.valueStrong, valueWidth === undefined ? undefined : { width: valueWidth }]} testID={`${testID}-value`}>
+    <Text style={[styles.value, numeral, { color: textColor }, shareText === undefined ? undefined : styles.valueStrong, valueWidth === undefined ? undefined : { width: valueWidth }, valueFontSize === undefined ? undefined : { fontSize: valueFontSize }]} testID={`${testID}-value`}>
       {valueText}
       {shareText === undefined ? null : (
         <Text style={[styles.share, { color: mutedColor }]} testID={`${testID}-share`}>
