@@ -1,6 +1,8 @@
 # Changelog
 
-## 1.10.0
+## 1.10.1
+
+First published release of the 1.10.0 changes below (v1.10.0 tag never published: version mismatch in package.json).
 
 - `HorizontalBarChart` opt-in `valueWidth` (value column width in px, default 64) and `valueGap` (gap between the row columns in px, default 10); `BarRow` gains both. `shareTotal` (share denominator in place of the shown sum) and `LegendMarker.None` (text-only legend: no marker in the table, inline and series legends). Defaults unchanged (MODC-1 r8 "dashboard bar width").
 
