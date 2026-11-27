@@ -65,7 +65,7 @@ export const StackedBar = ({
     >
       <View aria-hidden style={styles.stack}>
         {placed.map((segment, i) => (
-          <View key={segment.datum.key} style={{ backgroundColor: segment.datum.striped === true ? undefined : colors[i], flexGrow: segment.fraction }}>
+          <View key={segment.datum.key} style={{ backgroundColor: segment.datum.striped === true ? undefined : colors[i], flexBasis: 0, flexGrow: segment.fraction, minWidth: 0 }}>
             {segment.datum.striped === true ? <StripedFill color={colors[i] ?? ''} id={`${testID}-stripes-${segment.datum.key}`} /> : null}
           </View>
         ))}

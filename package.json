@@ -1,6 +1,6 @@
 {
     "name": "@dloizides/ui-charts",
-    "version": "1.12.0",
+    "version": "1.12.1",
     "description": "Themable React Native (RN-web) chart components for the dloizides.com portfolio. Starts with Donut: a ring plus a legend table that doubles as the accessible text fallback.",
     "keywords": [
         "react",
