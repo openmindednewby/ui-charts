@@ -60,12 +60,14 @@ export const ColumnChart = ({
   const layout = useColumnText({ axis, labels, plotWidth, values });
   const handleLayout = (event: LayoutChangeEvent): void => setPlotWidth(event.nativeEvent.layout.width);
   const plotHeight = axis?.plotHeight ?? COLUMN_AREA_HEIGHT;
+  const baselineOffset = axis?.baselineOffset;
   const top = max ?? data.reduce((most, datum) => Math.max(most, datum.value), 0);
   const columns = (
     <View onLayout={handleLayout} role="list" style={[styles.columns, axis === undefined ? null : styles.plot, { gap: layout.gap }]}>
       {items.map((item, index) => (
         <BarColumn
           {...layout.textAt(index)}
+          baselineOffset={baselineOffset}
           color={item.color}
           fraction={item.fraction}
           key={item.key}
@@ -83,8 +85,8 @@ export const ColumnChart = ({
   return (
     <ChartFrame emptyText={emptyText} heading={heading} isEmpty={items.length === 0} meta={meta} summary={summary} testID={testID}>
       {axis === undefined ? columns : (
-        <View style={styles.withAxis}>
-          <ColumnYAxis color={theme.colors.textSecondary} height={plotHeight} maxText={formatValue(top, { key: 'axis-max', label: '', value: top })} testID={testID} zeroText={formatValue(0, { key: 'axis-zero', label: '', value: 0 })} />
+        <View style={[styles.withAxis, axis.topGap === undefined ? null : { paddingTop: axis.topGap }]}>
+          <ColumnYAxis baselineOffset={baselineOffset} color={theme.colors.textSecondary} height={plotHeight} maxText={formatValue(top, { key: 'axis-max', label: '', value: top })} testID={testID} zeroText={formatValue(0, { key: 'axis-zero', label: '', value: 0 })} />
           {columns}
         </View>
       )}
