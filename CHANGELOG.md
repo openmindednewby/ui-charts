@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.0
+
+- `ColumnChart` axis mode: opt-in `axis.topGap` (px of space above the first bar, the y-axis follows) and `axis.baselineOffset` (px the baseline sits above the x-label row). Without them nothing changes (MODC-1 "quota trend frame offsets").
+
 ## 1.11.1
 
 - `ColumnChart` value mode: the first and last shown value and label are anchored at the plot's left and right edge (start and end) when a centred box would pass it, so the first x-axis label is no longer clipped. Other columns and axis mode unchanged (MODC-1 "column chart edge labels").
